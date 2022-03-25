@@ -1,3 +1,4 @@
+import os
 import binascii
 import random
 
@@ -17,9 +18,11 @@ def corruptJpeg(inputFileName, randomChance, iterations):
     fileContentsHex = binascii.hexlify(fileContents, '-')
     fileContentsSplit = fileContentsHex.split(b'-')
 
+    if not os.path.exists("demo_outputs/inputFileName/"):
+        os.makedirs("demo_outputs/inputFileName/")
 
     for i in range(iterations):
-        outputFileName = f"demo_outputs/test5/output_{i + 1}.jpeg"
+        outputFileName = f"demo_outputs/inputFileName/output_{i + 1}.jpeg"
         fOut = open(outputFileName, 'wb')
         for i in range(len(fileContentsSplit)):
             if fileContentsSplit[i] == b'ff' or (i > 0 and fileContentsSplit[i - 1] == b'ff'):
@@ -39,9 +42,11 @@ def swapCorruptJpeg(inputFileName, randomChance, iterations):
     fileContentsHex = binascii.hexlify(fileContents, '-')
     fileContentsSplit = fileContentsHex.split(b'-')
 
+    if not os.path.exists("demo_outputs/inputFileName/"):
+        os.makedirs("demo_outputs/inputFileName/")
 
     for i in range(iterations):
-        outputFileName = f"demo_outputs/test5/output_{i + 1}.jpeg"
+        outputFileName = f"demo_outputs/inputFileName/output_{i + 1}.jpeg"
         fOut = open(outputFileName, 'wb')
         for i in range(len(fileContentsSplit)):
             if fileContentsSplit[i] == b'ff' or (i > 0 and fileContentsSplit[i - 1] == b'ff'):
@@ -58,11 +63,14 @@ def swapCorruptJpeg(inputFileName, randomChance, iterations):
         fOut.close()
 
 
+#Modify variables here
 inputFileName = "demo_images/test5.jpeg"
 randomChance =35000
 iterations = 10
 
-swapCorruptJpeg(inputFileName, randomChance, iterations)
+#Use either functions here
+corruptJpeg(inputFileName, randomChance, iterations)
+#swapCorruptJpeg(inputFileName, randomChance, iterations)
 
 
 
